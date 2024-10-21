@@ -35,9 +35,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (error.length) {
     return error;
   }
-  await updateProduct(data, +params.id);
 
-  return redirect("/");
+  if (params.id !== undefined) {
+    await updateProduct(data, +params.id);
+
+    return redirect("/");
+  }
 }
 
 const availabilityOptions = [
@@ -85,7 +88,7 @@ export default function EditProduct() {
         <input
           type="submit"
           className="mt-5 w-full bg-indigo-600 p-2 text-white font-bold text-lg cursor-pointer rounded"
-          value="Guadar Cambios"
+          value="Guardar Cambios"
         />
       </Form>
     </>
